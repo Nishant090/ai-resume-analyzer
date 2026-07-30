@@ -22,7 +22,6 @@ export const register = async (req, res, next) => {
     next(error);
   }
 };
-
 //@POST /api/v1/auth/login
 export const login = async (req, res, next) => {
   try {
@@ -46,3 +45,14 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+//@GET / api/v1/auth/me
+export const getMe= async(req,res)=>{
+    return res.status(200).json({
+        success:true,
+        user:{
+            id:req.user._id,
+            name:req.user.name,
+            email:req.user.email
+        }
+    })
+}

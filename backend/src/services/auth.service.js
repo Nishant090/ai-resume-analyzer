@@ -3,7 +3,7 @@ import generateToken from "../utils/generateToken.js";
 import ApiError from "../utils/apiError.js";
  
 
-//Register 
+//Register User
 export const register = async ({ name, email, password }) => {
   // all fields are required
 
@@ -36,9 +36,7 @@ export const register = async ({ name, email, password }) => {
     token,
   };
 };
-
-
-//Login
+//Login User
 export const login = async ({ email, password }) => {
 
   // all fields are required
