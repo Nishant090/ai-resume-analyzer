@@ -1,9 +1,10 @@
-import User from "../models/user.model";
-import generateToken from "../utils/generateToken";
-import ApiError from "../utils/ApiError.js";
+import User from "../models/user.model.js";
+import generateToken from "../utils/generateToken.js";
+import ApiError from "../utils/apiError.js";
 
 export const register = async ({ name, email, password }) => {
   // all fields are required
+  
   if (!name || !email || !password) {
     throw new ApiError(400,"All fields are required");
   }
@@ -21,8 +22,9 @@ export const register = async ({ name, email, password }) => {
     email,
     password,
   });
-
+  
   const token = generateToken(user._id);
+ 
   return {
     user: {
       id: user._id,

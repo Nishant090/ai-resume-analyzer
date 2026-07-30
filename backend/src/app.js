@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth.route"
-import errorHandler from "./middleware/error.middleware";
+import authRoutes from "./routes/auth.route.js"
+import errorHandler from "./middleware/error.middleware.js";
 
 const app = express();
 app.use(express.json());
@@ -12,7 +12,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth",authRoutes)
 
-app.use(errorHandler)
+
 
 app.get("/", (req, res) => {
   res.json({
@@ -20,5 +20,7 @@ app.get("/", (req, res) => {
     message: "app is running",
   });
 });
+
+app.use(errorHandler)
 
 export default app;
