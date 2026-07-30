@@ -1,19 +1,21 @@
 import User from "../models/user.model";
 import generateToken from "../utils/generateToken";
+import ApiError from "../utils/ApiError.js";
 
 export const register = async ({ name, email, password }) => {
   // all fields are required
   if (!name || !email || !password) {
-    throw new Error("All fields are required");
+    throw new ApiError(400,"All fields are required");
   }
-  // checking existing user
 
+  // checking existing user
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    throw new Error("User already exists");
+    throw new ApiError(409,"User already exists");
   }
 
+  //creating user
   const user = await User.create({
     name,
     email,
