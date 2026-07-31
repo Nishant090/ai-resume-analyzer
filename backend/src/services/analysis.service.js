@@ -1,7 +1,13 @@
 import uploadResume from "./imagekit.service.js";
+import { extractTextFromPdf } from "./parser.service.js";
 
 export const uploadResumeFile = async (file) => {
-  const uploadFile = await uploadResume(file);
+  const uploadedFile = await uploadResume(file);
+  const extractedText = await extractTextFromPdf(file.buffer)
 
-  return uploadFile;
+
+  return {
+    uploadedFile,
+    extractedText
+  }
 };

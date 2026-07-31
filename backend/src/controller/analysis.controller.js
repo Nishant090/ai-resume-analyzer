@@ -1,5 +1,4 @@
 import * as analysisService from "../services/analysis.service.js";
-import { APIError } from "@imagekit/nodejs";
 
 export const uploadResume = async (req, res, next) => {
   try {
@@ -10,12 +9,15 @@ export const uploadResume = async (req, res, next) => {
       });
     }
 
-    const uploadedFile = await analysisService.uploadResumeFile(req.file);
+    const {uploadedFile, extractedText} = await analysisService.uploadResumeFile(req.file);
+    
+  
 
     return res.status(201).json({
       success: true,
       messsage: "Pdf uploaded successfully",
-      uploadedFile,
+      file:uploadedFile,
+      extractedText
     });
   } catch (error) {
     console.log(error)
