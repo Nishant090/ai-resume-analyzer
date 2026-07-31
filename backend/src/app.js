@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth.route.js"
+import authRoutes from "./routes/auth.route.js";
+import analysisRoutes from "./routes/analysis.route.js";
 import errorHandler from "./middleware/error.middleware.js";
 
 const app = express();
@@ -9,10 +10,8 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-
-app.use("/api/v1/auth",authRoutes)
-
-
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/analysis", analysisRoutes);
 
 app.get("/", (req, res) => {
   res.json({
@@ -21,6 +20,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 export default app;
