@@ -11,13 +11,19 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@google/genai": "^2.15.0",
+    "@imagekit/nodejs": "^7.10.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.8.1"
+    "mongoose": "^9.8.1",
+    "multer": "^2.2.0",
+    "pdf-parse": "^2.4.5",
+    "pdf-parser": "^1.0.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
