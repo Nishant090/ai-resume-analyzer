@@ -9,15 +9,13 @@ export const uploadResume = async (req, res, next) => {
       });
     }
 
-    const {uploadedFile, extractedText} = await analysisService.uploadResumeFile(req.file);
+    const savedAnalysis = await analysisService.analyzeResumeFile(req.file,req.user._id);
     
   
-
     return res.status(201).json({
       success: true,
-      messsage: "Pdf uploaded successfully",
-      file:uploadedFile,
-      extractedText
+      messsage: "Analyzed resume successfully",
+      analysis:savedAnalysis
     });
   } catch (error) {
     console.log(error)
