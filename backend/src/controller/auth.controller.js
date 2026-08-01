@@ -1,6 +1,5 @@
 import * as authService from "../services/auth.service.js";
 
-
 //@POST /api/v1/auth/register
 export const register = async (req, res, next) => {
   try {
@@ -35,24 +34,35 @@ export const login = async (req, res, next) => {
     });
 
     return res.status(200).json({
-        success:true,
-        message:"Login successfull",
-        user
-
-    })
+      success: true,
+      message: "Login successfull",
+      user,
+    });
   } catch (error) {
-   
     next(error);
   }
 };
 //@GET / api/v1/auth/me
-export const getMe= async(req,res)=>{
-    return res.status(200).json({
-        success:true,
-        user:{
-            id:req.user._id,
-            name:req.user.name,
-            email:req.user.email
-        }
-    })
-}
+export const getMe = async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+    },
+  });
+};
+
+export const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+};
