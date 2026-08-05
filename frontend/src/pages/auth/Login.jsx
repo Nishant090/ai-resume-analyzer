@@ -66,7 +66,7 @@ const Login = () => {
               {error}
             </div>
           )}
-          <Button type="submit" loading={loading} loadingText="Logging in.....">
+          <Button type="submit" loading={loading} loadingText="Logging in....." fullWidth={true}>
             Login
           </Button>
         </form>

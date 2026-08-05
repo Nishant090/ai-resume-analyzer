@@ -1,16 +1,26 @@
-import React from 'react'
-import  {Outlet} from "react-router-dom"
-
+import {Outlet} from "react-router-dom"
+import Navbar from "../components/layout/Navbar";
+import Sidebar from "../components/layout/Sidebar";
 const DashboardLayout = () => {
   return (
-   <div>
-    <h1>NavBAr</h1>
-    <hr />
-    <h1>Sidebar</h1>
-    <hr />
-    <Outlet/>
-   </div>
-  )
-}
+    <div className="min-h-screen bg-slate-50">
+      {/* Navbar */}
+     
+        <Navbar/>
+    
 
-export default DashboardLayout
+      {/* Body */}
+      <div className="flex">
+        {/* Sidebar */}
+       <Sidebar/>
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;

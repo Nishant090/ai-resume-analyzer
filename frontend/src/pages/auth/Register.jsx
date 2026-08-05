@@ -78,7 +78,7 @@ const Register = () => {
               {error}
             </div>
           )}
-          <Button type="submit" loading={loading} loadingText="Registering.....">
+          <Button type="submit" loading={loading} loadingText="Registering....." fullWidth={true}>
             Register
           </Button>
         </form>

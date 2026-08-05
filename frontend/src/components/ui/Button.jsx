@@ -1,8 +1,8 @@
-const Button = ({ children, loading = false,loadingText ,...props }) => {
+const Button = ({ children, loading = false,loadingText,fullWidth=false,...props }) => {
   return (
     <button
-      className="
-        w-full
+      className={`
+        ${fullWidth ? "w-full" : ""}
         rounded-lg
         bg-blue-600
         px-4
@@ -17,7 +17,7 @@ const Button = ({ children, loading = false,loadingText ,...props }) => {
         duration-200
         hover:scale-[1.02]
         active:scale-[0.98]
-      "
+      `}
       disabled={loading || props.disabled}
       {...props}
     >
