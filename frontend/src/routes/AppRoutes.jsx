@@ -8,6 +8,7 @@ import History from "../pages/dashboard/History.jsx";
 import Analysis from "../pages/dashboard/Analysis.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
+import ProtectedRoutes from "./ProtectedRoutes.jsx";
 
 const AppRoutes = () => {
   return (
@@ -19,7 +20,13 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
       </Route>
 
-      <Route element={<DashboardLayout />}>
+      <Route
+        element={
+          <ProtectedRoutes>
+            <DashboardLayout />
+          </ProtectedRoutes>
+        }
+      >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/history" element={<History />} />
