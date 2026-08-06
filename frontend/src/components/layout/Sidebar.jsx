@@ -34,9 +34,9 @@ const Sidebar = () => {
   return (
     <aside className="w-64 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
       <nav className="flex flex-col p-4 space-y-2">
-        {navItems.map((items) => {
+        {navItems.map((items,index) => {
           return (
-            <NavLink to={items.path} className={linkClass}>
+            <NavLink key={index} to={items.path} className={linkClass}>
               {items.icon}
               {items.name}
             </NavLink>
