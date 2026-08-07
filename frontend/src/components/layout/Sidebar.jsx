@@ -14,7 +14,7 @@ const Sidebar = () => {
     },
     {
       name: "Analysis History",
-      path: "/history",
+      path: "/analysis",
       icon: "📚",
     },
     {

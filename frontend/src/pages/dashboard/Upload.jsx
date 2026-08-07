@@ -41,8 +41,8 @@ const Upload = () => {
     try {
       const formData = new FormData();
       formData.append("resume", selectedFile);
-      await resumeService.uploadResume(formData);
-      navigate("/analysis");
+     const data =  await resumeService.uploadResume(formData);
+      navigate(`/analysis/${data.analysis._id}`);
     } catch (error) {
       console.error(error);
       setError(error.response?.data?.message || "Upload failed");
