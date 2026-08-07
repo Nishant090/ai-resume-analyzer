@@ -56,16 +56,16 @@ Landing Page
 
 # Navigation Summary
 
-| Screen | Next Screen |
-|---------|-------------|
-| Landing | Login / Register |
-| Login | Dashboard |
-| Register | Dashboard |
-| Dashboard | Upload Resume |
-| Upload Resume | Analysis Result |
+| Screen          | Next Screen         |
+| --------------- | ------------------- |
+| Landing         | Login / Register    |
+| Login           | Dashboard           |
+| Register        | Dashboard           |
+| Dashboard       | Upload Resume       |
+| Upload Resume   | Analysis Result     |
 | Analysis Result | Dashboard / History |
-| History | Analysis Detail |
-| Analysis Detail | Dashboard |
+| History         | Analysis Detail     |
+| Analysis Detail | Dashboard           |
 
 ---
 

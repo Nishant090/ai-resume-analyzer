@@ -26,15 +26,15 @@ The frontend communicates with the backend through RESTful APIs. The backend han
 
 # 3. Technology Stack
 
-| Layer | Technology |
-|--------|------------|
-| Frontend | React, React Router, Tailwind CSS, Axios |
-| Backend | Node.js, Express.js |
-| Database | MongoDB, Mongoose |
-| Authentication | JWT (HttpOnly Cookie), bcrypt |
-| File Storage | ImageKit |
-| PDF Parsing | pdf-parse |
-| AI Integration | AI Provider (LLM API) |
+| Layer          | Technology                               |
+| -------------- | ---------------------------------------- |
+| Frontend       | React, React Router, Tailwind CSS, Axios |
+| Backend        | Node.js, Express.js                      |
+| Database       | MongoDB, Mongoose                        |
+| Authentication | JWT (HttpOnly Cookie), bcrypt            |
+| File Storage   | ImageKit                                 |
+| PDF Parsing    | pdf-parse                                |
+| AI Integration | AI Provider (LLM API)                    |
 
 ---
 
@@ -170,15 +170,15 @@ Extracts plain text from uploaded PDF resumes before sending the content to the 
 
 # 10. Architecture Decisions
 
-| Decision | Reason |
-|----------|--------|
-| React | Component-based UI development |
-| Express.js | Lightweight REST API framework |
-| MongoDB | Flexible schema and MERN compatibility |
-| JWT in HttpOnly Cookie | Secure authentication |
-| ImageKit | Cloud-based file storage and CDN |
-| pdf-parse | Reliable PDF text extraction |
-| REST API | Standard communication between frontend and backend |
+| Decision               | Reason                                              |
+| ---------------------- | --------------------------------------------------- |
+| React                  | Component-based UI development                      |
+| Express.js             | Lightweight REST API framework                      |
+| MongoDB                | Flexible schema and MERN compatibility              |
+| JWT in HttpOnly Cookie | Secure authentication                               |
+| ImageKit               | Cloud-based file storage and CDN                    |
+| pdf-parse              | Reliable PDF text extraction                        |
+| REST API               | Standard communication between frontend and backend |
 
 ---
 

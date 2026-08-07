@@ -12,11 +12,13 @@
 RESTful API served by Express.js. All protected routes require a valid JWT sent via `httpOnly` cookie (see System Architecture, Section 7). All responses follow a consistent envelope so the frontend can handle success/error uniformly.
 
 **Success response:**
+
 ```json
 { "success": true, "data": { ... } }
 ```
 
 **Error response:**
+
 ```json
 { "success": false, "error": "Human-readable message" }
 ```
@@ -27,17 +29,17 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 
 # 2. Endpoint Summary
 
-| Method | Path | Auth | Purpose |
-|--------|------|------|---------|
-| POST | `/api/auth/register` | No | Create account |
-| POST | `/api/auth/login` | No | Log in, sets JWT cookie |
-| POST | `/api/auth/logout` | Yes | Clears JWT cookie |
-| GET | `/api/auth/me` | Yes | Get current logged-in user |
-| POST | `/api/analysis` | Yes | Upload resume + run full analysis pipeline |
-| GET | `/api/analysis` | Yes | List analysis history (paginated) |
-| GET | `/api/analysis/:id` | Yes | Get one analysis's full details |
-| POST | `/api/analysis/:id/retry` | Yes | Retry a failed analysis |
-| DELETE | `/api/analysis/:id` | Yes | Delete an analysis + its stored file |
+| Method | Path                      | Auth | Purpose                                    |
+| ------ | ------------------------- | ---- | ------------------------------------------ |
+| POST   | `/api/auth/register`      | No   | Create account                             |
+| POST   | `/api/auth/login`         | No   | Log in, sets JWT cookie                    |
+| POST   | `/api/auth/logout`        | Yes  | Clears JWT cookie                          |
+| GET    | `/api/auth/me`            | Yes  | Get current logged-in user                 |
+| POST   | `/api/analysis`           | Yes  | Upload resume + run full analysis pipeline |
+| GET    | `/api/analysis`           | Yes  | List analysis history (paginated)          |
+| GET    | `/api/analysis/:id`       | Yes  | Get one analysis's full details            |
+| POST   | `/api/analysis/:id/retry` | Yes  | Retry a failed analysis                    |
+| DELETE | `/api/analysis/:id`       | Yes  | Delete an analysis + its stored file       |
 
 ---
 
@@ -48,6 +50,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Auth:** No
 
 **Request body:**
+
 ```json
 {
   "name": "Nishant Khatiwada",
@@ -57,6 +60,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Success (201):**
+
 ```json
 {
   "success": true,
@@ -69,11 +73,12 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 400 | Email already registered | `{ "success": false, "error": "Email already registered" }` |
-| 400 | Missing/invalid fields | `{ "success": false, "error": "Name, email, and password are required" }` |
-| 400 | Password too short | `{ "success": false, "error": "Password must be at least 8 characters" }` |
+
+| Status | Condition                | Body                                                                      |
+| ------ | ------------------------ | ------------------------------------------------------------------------- |
+| 400    | Email already registered | `{ "success": false, "error": "Email already registered" }`               |
+| 400    | Missing/invalid fields   | `{ "success": false, "error": "Name, email, and password are required" }` |
+| 400    | Password too short       | `{ "success": false, "error": "Password must be at least 8 characters" }` |
 
 ---
 
@@ -82,6 +87,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Auth:** No
 
 **Request body:**
+
 ```json
 {
   "email": "nishant@example.com",
@@ -90,6 +96,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Success (200):** Sets `httpOnly` JWT cookie. Body:
+
 ```json
 {
   "success": true,
@@ -102,9 +109,10 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 401 | Invalid email or password | `{ "success": false, "error": "Invalid email or password" }` |
+
+| Status | Condition                 | Body                                                         |
+| ------ | ------------------------- | ------------------------------------------------------------ |
+| 401    | Invalid email or password | `{ "success": false, "error": "Invalid email or password" }` |
 
 ---
 
@@ -115,6 +123,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Request body:** none
 
 **Success (200):** Clears JWT cookie.
+
 ```json
 { "success": true, "data": { "message": "Logged out successfully" } }
 ```
@@ -128,6 +137,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Purpose:** Lets the frontend check auth state on page load/refresh (e.g. to decide whether to redirect to login).
 
 **Success (200):**
+
 ```json
 {
   "success": true,
@@ -140,9 +150,10 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 401 | No valid session/cookie | `{ "success": false, "error": "Not authenticated" }` |
+
+| Status | Condition               | Body                                                 |
+| ------ | ----------------------- | ---------------------------------------------------- |
+| 401    | No valid session/cookie | `{ "success": false, "error": "Not authenticated" }` |
 
 ---
 
@@ -155,11 +166,13 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Purpose:** Uploads a resume and runs the full pipeline synchronously: validate → store in ImageKit → extract text → send to AI provider → save result. Request stays open until the full result is ready (see Section 6, Design Notes).
 
 **Request:** `multipart/form-data`
-| Field | Type | Constraints |
-|-------|------|-------------|
+
+| Field  | Type | Constraints                      |
+| ------ | ---- | -------------------------------- |
 | resume | File | PDF only, max 2 MB (Decision #2) |
 
 **Success (201):**
+
 ```json
 {
   "success": true,
@@ -171,13 +184,17 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
     "atsScore": 82,
     "strengths": ["Clear work history", "Quantified achievements"],
     "weaknesses": ["Missing keywords for target role", "No summary section"],
-    "suggestions": ["Add a professional summary", "Include measurable metrics in project descriptions"],
+    "suggestions": [
+      "Add a professional summary",
+      "Include measurable metrics in project descriptions"
+    ],
     "createdAt": "2026-07-28T13:05:00.000Z"
   }
 }
 ```
 
 **Success but AI failed (201) — record still created with `status: failed`:**
+
 ```json
 {
   "success": true,
@@ -192,12 +209,13 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 400 | No file provided | `{ "success": false, "error": "Resume file is required" }` |
-| 400 | Invalid file type | `{ "success": false, "error": "Only PDF files are supported" }` |
-| 400 | File too large | `{ "success": false, "error": "File exceeds 2MB limit" }` |
-| 422 | PDF text extraction failed (e.g. scanned/image-only PDF) | `{ "success": false, "error": "Could not extract text from this PDF" }` |
+
+| Status | Condition                                                | Body                                                                    |
+| ------ | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 400    | No file provided                                         | `{ "success": false, "error": "Resume file is required" }`              |
+| 400    | Invalid file type                                        | `{ "success": false, "error": "Only PDF files are supported" }`         |
+| 400    | File too large                                           | `{ "success": false, "error": "File exceeds 2MB limit" }`               |
+| 422    | PDF text extraction failed (e.g. scanned/image-only PDF) | `{ "success": false, "error": "Could not extract text from this PDF" }` |
 
 ---
 
@@ -208,12 +226,14 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Purpose:** Returns paginated analysis history for the logged-in user, newest first (Decision #4: page-based pagination).
 
 **Query params:**
-| Param | Type | Default |
-|-------|------|---------|
-| page | Number | 1 |
-| limit | Number | 10 |
+
+| Param | Type   | Default |
+| ----- | ------ | ------- |
+| page  | Number | 1       |
+| limit | Number | 10      |
 
 **Success (200):**
+
 ```json
 {
   "success": true,
@@ -239,12 +259,18 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Empty state (200):**
+
 ```json
 {
   "success": true,
   "data": {
     "analyses": [],
-    "pagination": { "currentPage": 1, "totalPages": 0, "totalItems": 0, "limit": 10 }
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 0,
+      "totalItems": 0,
+      "limit": 10
+    }
   }
 }
 ```
@@ -258,6 +284,7 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Purpose:** Returns full details of a single analysis.
 
 **Success (200):**
+
 ```json
 {
   "success": true,
@@ -277,9 +304,10 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 404 | Analysis not found, or belongs to another user | `{ "success": false, "error": "Analysis not found" }` |
+
+| Status | Condition                                      | Body                                                  |
+| ------ | ---------------------------------------------- | ----------------------------------------------------- |
+| 404    | Analysis not found, or belongs to another user | `{ "success": false, "error": "Analysis not found" }` |
 
 > Note: return 404 (not 403) when the analysis belongs to another user — this avoids revealing that a given ID exists at all.
 
@@ -296,10 +324,11 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Success (200):** Same shape as 4.1's success response, with updated `status`.
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 404 | Analysis not found / not owned by user | `{ "success": false, "error": "Analysis not found" }` |
-| 400 | Analysis is not in `failed` state | `{ "success": false, "error": "Only failed analyses can be retried" }` |
+
+| Status | Condition                              | Body                                                                   |
+| ------ | -------------------------------------- | ---------------------------------------------------------------------- |
+| 404    | Analysis not found / not owned by user | `{ "success": false, "error": "Analysis not found" }`                  |
+| 400    | Analysis is not in `failed` state      | `{ "success": false, "error": "Only failed analyses can be retried" }` |
 
 ---
 
@@ -310,28 +339,30 @@ References: `decisions-log.md` for AI provider, file size limit, retry behavior,
 **Purpose:** Deletes the analysis record from MongoDB **and** the file from ImageKit (using the stored `fileId` — see Database Design, Section 4).
 
 **Success (200):**
+
 ```json
 { "success": true, "data": { "message": "Analysis deleted" } }
 ```
 
 **Errors:**
-| Status | Condition | Body |
-|--------|-----------|------|
-| 404 | Analysis not found / not owned by user | `{ "success": false, "error": "Analysis not found" }` |
+
+| Status | Condition                              | Body                                                  |
+| ------ | -------------------------------------- | ----------------------------------------------------- |
+| 404    | Analysis not found / not owned by user | `{ "success": false, "error": "Analysis not found" }` |
 
 ---
 
 # 5. Status Codes Used
 
-| Code | Meaning |
-|------|---------|
-| 200 | Success (read/update/delete) |
-| 201 | Success (resource created — register, upload) |
-| 400 | Bad request (validation failure) |
-| 401 | Not authenticated |
-| 404 | Resource not found or not owned by user |
-| 422 | Request was valid but processing failed (e.g. unparseable PDF) |
-| 500 | Unexpected server error |
+| Code | Meaning                                                        |
+| ---- | -------------------------------------------------------------- |
+| 200  | Success (read/update/delete)                                   |
+| 201  | Success (resource created — register, upload)                  |
+| 400  | Bad request (validation failure)                               |
+| 401  | Not authenticated                                              |
+| 404  | Resource not found or not owned by user                        |
+| 422  | Request was valid but processing failed (e.g. unparseable PDF) |
+| 500  | Unexpected server error                                        |
 
 ---
 
