@@ -13,6 +13,7 @@ Your task is to analyze the resume provided below and return a comprehensive ana
 
 ### Output Schema
 {
+  "atsScore": // Integer between 0 and 100 based on ATS 
   "overallScore": 0, // Integer between 0 and 100 based on ATS readability, structure, and content quality
   "strengths": [
     "Specific strong point about experience, formatting, or metrics"
