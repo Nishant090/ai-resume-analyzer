@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Card from "../../components/ui/Card.jsx";
 import Button from "../../components/ui/Button.jsx";
 import Input from "../../components/ui/Input.jsx";
+
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -16,12 +17,12 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -38,49 +39,60 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Card>
-        <h2 className="text-3xl font-bold text-slate-900">Welcome Back</h2>
-        <p className="mt-2 text-sm text-slate-500">Sign in to your account</p>
-        <form onSubmit={handleSubmit} className="space-y-6 mt-8">
-          <Input
-            label="Email"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <Input
-            label="Password"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {error && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600">
-              {error}
-            </div>
-          )}
-          <Button type="submit" loading={loading} loadingText="Logging in.....">
-            Login
-          </Button>
-        </form>
-        <p className="mt-6 text-center text-sm text-slate-600">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="font-medium text-blue-600 hover:underline"
+    <Card>
+      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+        Welcome Back
+      </h2>
+      <p className="mt-2 text-sm text-slate-500">Sign in to your account</p>
+
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 mt-6 sm:mt-8" noValidate>
+        <Input
+          label="Email"
+          id="email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          placeholder="Enter your email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          label="Password"
+          id="password"
+          type="password"
+          name="password"
+          autoComplete="current-password"
+          placeholder="Enter your password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+
+        {error && (
+          <div
+            role="alert"
+            className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600"
           >
-            Register
-          </Link>
-        </p>
-      </Card>
-    </>
+            {error}
+          </div>
+        )}
+
+        <Button type="submit" loading={loading} loadingText="Logging in..." fullWidth={true}>
+          Login
+        </Button>
+      </form>
+
+      <p className="mt-6 text-center text-sm text-slate-600">
+        Don't have an account?{" "}
+        <Link
+          to="/register"
+          className="font-medium text-violet-600 hover:text-violet-700 hover:underline"
+        >
+          Register
+        </Link>
+      </p>
+    </Card>
   );
 };
 

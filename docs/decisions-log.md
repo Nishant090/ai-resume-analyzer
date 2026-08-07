@@ -5,12 +5,12 @@
 
 ---
 
-| # | Decision | Choice | Reason | Date |
-|---|----------|--------|--------|------|
-| 1 | AI Provider | Hugging Face Inference API | Reuses pattern from What's Cooking; free tier suitable for portfolio project | Jul 28, 2026 |
-| 2 | Max resume upload size | 2 MB | Sufficient for text-based PDF resumes; keeps ImageKit storage cheap | Jul 28, 2026 |
-| 3 | AI failure handling | Manual retry via button; extracted text preserved so retry doesn't require re-upload | Avoids doubling wait on Hugging Face cold starts; simpler state than auto-retry | Jul 28, 2026 |
-| 4 | History pagination | Page-based (page/limit), not cursor-based | Matches actual scale (dozens of records per user); simpler to implement correctly | Jul 28, 2026 |
+| #   | Decision               | Choice                                                                               | Reason                                                                            | Date         |
+| --- | ---------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | ------------ |
+| 1   | AI Provider            | Hugging Face Inference API                                                           | Reuses pattern from What's Cooking; free tier suitable for portfolio project      | Jul 28, 2026 |
+| 2   | Max resume upload size | 2 MB                                                                                 | Sufficient for text-based PDF resumes; keeps ImageKit storage cheap               | Jul 28, 2026 |
+| 3   | AI failure handling    | Manual retry via button; extracted text preserved so retry doesn't require re-upload | Avoids doubling wait on Hugging Face cold starts; simpler state than auto-retry   | Jul 28, 2026 |
+| 4   | History pagination     | Page-based (page/limit), not cursor-based                                            | Matches actual scale (dozens of records per user); simpler to implement correctly | Jul 28, 2026 |
 
 ---
 

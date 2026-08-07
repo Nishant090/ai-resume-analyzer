@@ -45,7 +45,7 @@ export const oneAnalysis = async (analysisId, userId) => {
 
 //@DELETE /api/v1/analysis/:id
 export const deleteAnalysis = async (analysisId, userId) => {
-  const analysis = await Analysis.find({
+  const analysis = await Analysis.findOne({
     _id: analysisId,
     user: userId,
   });

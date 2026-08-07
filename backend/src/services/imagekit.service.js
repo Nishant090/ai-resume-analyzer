@@ -19,5 +19,5 @@ const uploadResume = async (file) => {
 export default uploadResume;
 
 export const deleteResume = async (fileId) => {
-  await imagekit.deleteFile(fileId);
+  await imagekit.files.delete(fileId);
 };

@@ -6,7 +6,9 @@ import Dashboard from "../pages/dashboard/Dashboard.jsx";
 import Upload from "../pages/dashboard/Upload.jsx";
 import History from "../pages/dashboard/History.jsx";
 import Analysis from "../pages/dashboard/Analysis.jsx";
+import Profile from "../pages/dashboard/Profile.jsx";
 import DashboardLayout from "../layouts/DashboardLayout.jsx";
+
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 
@@ -30,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/history" element={<History />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/analysis/:id" element={<Analysis />} />
       </Route>
     </Routes>
