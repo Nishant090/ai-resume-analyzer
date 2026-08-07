@@ -25,6 +25,12 @@ const analysisSchema = new mongoose.Schema(
     },
 
     analysis: {
+      atsScore: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 100,
+      },
       overallScore: {
         type: Number,
         required: true,

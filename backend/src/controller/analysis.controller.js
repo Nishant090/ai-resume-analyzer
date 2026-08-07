@@ -20,7 +20,6 @@ export const uploadResume = async (req, res, next) => {
       analysis: savedAnalysis,
     });
   } catch (error) {
-    console.log(error);
     next(err);
   }
 };
@@ -59,7 +58,6 @@ export const getAnalysisById = async (req, res, next) => {
 export const deleteAnalysis = async (req, res, next) => {
   try {
     await analysisService.deleteAnalysis(req.params.id, req.user._id);
-
     res.status(200).json({
       success: true,
       message: "Analysis deleted successfully",
