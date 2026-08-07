@@ -20,7 +20,7 @@ const History = () => {
     setLoading(true);
     setError("");
     try {
-      const data = await analysisService.getHistory();
+      const data = await analysisService.getAllAnalyses();
       setAnalyses(data.history || []);
     } catch (error) {
       console.error(error);

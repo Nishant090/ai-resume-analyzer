@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const data = await analysisService.getHistory();
+        const data = await analysisService.getAllAnalyses();
         setAnalyses(data.history || []);
       } catch (error) {
         console.error(error);

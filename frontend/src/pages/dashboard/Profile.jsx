@@ -12,7 +12,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const data = await analysisService.getHistory();
+        const data = await analysisService.getAllAnalyses();
         const history = data.history || [];
         const total = history.length;
         const avg = total

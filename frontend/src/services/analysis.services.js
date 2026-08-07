@@ -7,6 +7,7 @@ export const getAnalysisFromId = async (id) => {
 
 export const getAllAnalyses = async () => {
   const response = await api.get(`/analysis/history`);
+  console.log(response.data)
   return response.data;
 };
 
